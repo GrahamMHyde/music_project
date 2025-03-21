@@ -2,6 +2,7 @@
 myvirtenv/
 __pycache__/
 
+
 # Ignore Spleeter's pre-trained models
 pretrained_models/
 
@@ -12,5 +13,6 @@ test_output_folder/
 output_directory/
 
 # Ignore specific files
-"SOURCE SEPARATION NOTES.docx"
+SOURCE SEPARATION NOTES.docx
 source_sep.py
+.DS_Store
