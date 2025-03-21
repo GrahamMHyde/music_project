@@ -16,3 +16,7 @@ output_directory/
 SOURCE SEPARATION NOTES.docx
 source_sep.py
 .DS_Store
+
+# Ignore other large files
+*.dylib
+*.so
