@@ -14,7 +14,7 @@ output_directory/
 
 # Ignore specific files
 SOURCE SEPARATION NOTES.docx
-source_sep.py
+source_sep_old.py
 .DS_Store
 
 # Ignore other large files
