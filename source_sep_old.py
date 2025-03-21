@@ -15,9 +15,15 @@ def separate_audio(input_files_folder, output_folder):
         # Check if folder entry is a file (not folder) and if it has the proper file extension
         if os.path.isfile(file_path) and any(file.upper().endswith(extension) for extension in supported_formats):
             try: 
-                # Stem separation of each file if it is a proper audio file
+                # Create a unique output folder for each input file
+                file_base_name = os.path.splitext(file)[0]   # This extracts the filename with no extension
+                file_output_folder = os.path.join(output_folder, file_base_name)
+
+                # Ensure the output folder exists
+                os.makedirs(file_output_folder, exist_ok=True)
+
                 print(f'Processing: {file}')
-                separator.separate_to_file(file_path, output_folder)   # store output files in specified output folder
+                separator.separate_to_file(file_path, file_output_folder)   # store output files in specified output folder
                 print(f'Stem separation completed successfully for: {file}')
                 
             except Exception as e: 
