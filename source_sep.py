@@ -1,7 +1,16 @@
 import os
 from spleeter.separator import Separator
+import toml
 
-# git check
+# Load configuration file 
+config = toml.load("config.toml")
+
+# Set input audio folder filepath
+input_folder = config["paths"]["preprocess_s2_folder"]
+
+# Create output directory to store separated audio files
+output_folder = config["paths"]["stem_separated_output_folder"]
+os.makedirs(output_folder, exist_ok=True)
 
 def separate_audio(input_files_folder, output_folder): 
     # Initialze the separator model (2, 4, or 5 stems)
@@ -33,13 +42,4 @@ def separate_audio(input_files_folder, output_folder):
 
 
 if __name__ == '__main__':
-    input_files_folder = '/Users/grahamhyde/Downloads/folder/Music_Project/test_audio_files'
-    output_folder = '/Users/grahamhyde/Downloads/folder/Music_Project/test_output_folder'
-
-    # Make the output folder to store the source-separated files
-    os.makedirs(output_folder, exist_ok=True)
-
-    # Run script
-    separate_audio(input_files_folder, output_folder)
-
-    
+    separate_audio(input_folder, output_folder)
