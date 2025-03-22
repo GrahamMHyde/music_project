@@ -1,12 +1,16 @@
 import pre_processing
 import os, subprocess 
+import toml
+
+# Load configuration file
+config = toml.load("config.toml")
 
 # Define folder paths
-s1_input_folder = '/Users/grahamhyde/Downloads/folder/Music_Project/test_audio_files'
-s1_output_folder = '/Users/grahamhyde/Downloads/folder/Music_Project/preprocessing_output'
-s2_output_folder = '/Users/grahamhyde/Downloads/folder/Music_Project/preprocessing_output/resampled_output'
+s1_input_folder = config["paths"]["audio_folder"]
+s1_output_folder = config["paths"]["preprocess_s1_folder"]
+s2_output_folder = config["paths"]["preprocess_s2_folder"]
 s3_input_folder = s2_output_folder
-s3_output_folder = '/Users/grahamhyde/Downloads/folder/Music_Project/preprocessing_output/resampled_output/bit_depth_output'
+s3_output_folder = config["paths"]["preprocess_s3_folder"]
 
 # Create output folders
 os.makedirs(s1_output_folder, exist_ok=True)
