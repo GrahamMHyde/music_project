@@ -3,6 +3,15 @@ import soundfile as sf
 import subprocess
 import os
 import json
+import toml
+
+# Load configuration file 
+config = toml.load("config.toml")
+
+# Set filepaths
+input_folder = config["paths"]["audio_folder"]
+s1_output_folder = config["paths"]["preprocess_s1_folder"]
+s2_output_folder = config["paths"]["preprocess_s2_folder"]
 
 #  -----  STAGE 1: FILE TYPE CONVERSION TO .WAV  -----
 
@@ -10,6 +19,9 @@ import json
 # This function runs a bash command to extract the audio stream from any file and 
 # create a .wav file with it.
 def convert_to_wav(input_folder, output_folder):
+    # Make output directory
+    os.makedirs(output_folder, exist_ok=True)
+
     # Iterate through all files in the input files folder
     for file in os.listdir(input_folder):
         file_path = os.path.join(input_folder, file)
@@ -49,6 +61,9 @@ def convert_to_wav(input_folder, output_folder):
 # This function sets the sampling rate to 44.1 kHz for Spleeter's separator models
 # and outputs the converted files
 def convert_audio(input_folder, output_folder):   
+    # Make output directory
+    os.makedirs(output_folder, exist_ok=True)
+
     """
     librosa.load() takes an audio file and resamples it to the 
     specified sampling rate (target_sr). To preserve native sr set 
@@ -75,25 +90,12 @@ def convert_audio(input_folder, output_folder):
         except Exception as e: 
             print(f'Error in resampling stage: {e}')
 
-
-# Main function
-def main(): 
-    # Define folder paths
-    s1_input_folder = '/Users/grahamhyde/Downloads/folder/Music_Project/test_audio_files'
-    s1_output_folder = '/Users/grahamhyde/Downloads/folder/Music_Project/preprocessing_output'
-    s2_output_folder = '/Users/grahamhyde/Downloads/folder/Music_Project/preprocessing_output/resampled_output'
-
-    # Create output folders
-    os.makedirs(s1_output_folder, exist_ok=True)
-    os.makedirs(s2_output_folder, exist_ok=True)
-
-    # Stage 1: Convert to WAV
-    convert_to_wav(s1_input_folder, s1_output_folder)
-
-    # Stage 2: Resample audio
-    convert_audio(s1_output_folder, s2_output_folder)
+def preprocess_audio(input_folder, stage1_output_folder, stage2_output_folder):
+    """Run the entire preprocessing pipeline."""
+    convert_to_wav(input_folder, stage1_output_folder)
+    convert_audio(stage1_output_folder, stage2_output_folder)
 
 
 # This ensures the script runs when executed directly, but not when imported as a module
 if __name__ == "__main__":
-    main()
+    preprocess_audio(input_folder, s1_output_folder, s2_output_folder)
