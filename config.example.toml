@@ -1,0 +1,4 @@
+[paths]
+audio_folder = "path/to/your/audio_files"
+preprocess_s1_folder = "path/to/your/wav_converted_files"
+preprocess_s2_folder = "path/to/your/resampled_files"
