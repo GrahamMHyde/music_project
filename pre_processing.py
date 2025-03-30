@@ -45,7 +45,7 @@ def convert_to_wav(input_folder, output_folder):
         """ 
         ffmpeg:   software designed to handle multi-media files; used for digital signal processing
         -vn:   disables video processing
-        - acodec pcm_s16le:   specifies the audio coder/decoder shoudl be PCM with 16-bit signed little-endian encoding (WAV files)...
+        - acodec pcm_s16le:   specifies the audio coder/decoder should be PCM with 16-bit signed little-endian encoding (WAV files)...
         - ar 44100:   sets sample rate to 44.1 kHz
         -ac 2:   ensures stereo output (2 channels)
         """
@@ -54,6 +54,7 @@ def convert_to_wav(input_folder, output_folder):
             '44100', '-ac', '2', output_file
         ]
         subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print(f'{file} successfully converted to .wav format')
 
 
 #  -----  STAGE 2: RESAMPLE CONVERTED AUDIO FILES  -----
@@ -86,6 +87,7 @@ def convert_audio(input_folder, output_folder):
             data, sr = sf.read(file_path, dtype='float32')  # Returns 1) audio time series array & 2) sampling rate of the array
             data_441k = librosa.resample(data, orig_sr=sr, target_sr=44100)
             sf.write(output_file, data_441k, 44100)
+            print(f'Successfully resampled {file}')
 
         except Exception as e: 
             print(f'Error in resampling stage: {e}')
