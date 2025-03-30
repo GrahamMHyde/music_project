@@ -14,16 +14,15 @@ output_directory/
 
 # Ignore specific files
 personal_songs/
-driver_script.py
 song_retrieval.py
 driver_script_v2.py
 source_sep_v2.py
-separate_single_file.py
-config.toml
-SOURCE SEPARATION NOTES.docx
 source_sep_old.py
+config.toml
+READ_ME.md
 .DS_Store
 
 # Ignore other large files
 *.dylib
 *.so
+*.docx
