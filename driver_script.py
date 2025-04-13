@@ -4,8 +4,13 @@
 
 import pre_processing
 import source_sep
+import memory_stats
 import toml
 import os
+import time
+
+# Start timer to track runtime performance
+start_time = time.perf_counter()
 
 # Function to create new output folders so you don't have to delete previous runs
 def generate_new_folder(current_folder, subfolder=""): 
@@ -30,6 +35,9 @@ def main(config_path):
     s1_output_folder = generate_new_folder(config["paths"]["preprocess_s1_folder"])
     s2_output_folder = generate_new_folder(s1_output_folder, "resampled_output")
 
+    # Grab system utilization data - monitor processes, resources
+    memory_stats.log_memory_stats(filename="start_sys_data.txt")
+
     # Preprocess song
     pre_processing.preprocess_audio(input_folder_PP, s1_output_folder, s2_output_folder) 
 
@@ -42,6 +50,15 @@ def main(config_path):
     # Separate stems
     source_sep.separate_audio(s2_output_folder, output_folder_sep)
 
+    # Display program runtime
+    stop_time = time.perf_counter()
+    runtime = stop_time - start_time 
+    if runtime >= 60: 
+        min = int(runtime // 60)
+        sec = runtime % 60 
+        print(f'Program runtime: {min} minutes {sec:1f} seconds')
+    else: 
+        print(f'Program runtime: {runtime:.4f} seconds')
 
 if __name__ == '__main__':
     config_path = "config.toml"
