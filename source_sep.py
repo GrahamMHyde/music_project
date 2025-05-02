@@ -1,15 +1,13 @@
 import os
 from spleeter.separator import Separator
-import gc
-import tensorflow as tf
 import memory_stats
 
-def separate_audio(input_files_folder, output_folder): 
+def separate_audio(input_files_folder, output_folder, model): 
     # These are the supported file audio formats
     supported_formats = {'.WAV', '.MP3', '.FLAC', '.OGG', '.M4A'}
 
     # Initialze the separator model (2, 4, or 5 stems)
-    separator = Separator('spleeter:4stems')
+    separator = Separator(model)
 
     # Iterate through all the files in the input files folder
     for file in os.listdir(input_files_folder):   # os.listdir() returns a list of all entries in a given directory

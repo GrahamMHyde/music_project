@@ -48,7 +48,8 @@ def main(config_path):
     os.makedirs(output_folder_sep, exist_ok=True)
 
     # Separate stems
-    source_sep.separate_audio(s2_output_folder, output_folder_sep)
+    model = 'spleeter:4stems'
+    source_sep.separate_audio(s2_output_folder, output_folder_sep, model)
 
     # Display program runtime
     stop_time = time.perf_counter()

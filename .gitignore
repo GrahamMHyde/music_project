@@ -11,9 +11,15 @@ preprocessing_output/
 test_audio_files/
 test_output_folder/
 output_directory/
+ARDUINO_MUSIC/
+preprocessing_output_run1/
+preprocessing_output_run2/
+stem_separated_output_run1/
+stem_separated_output_run2/
 
 # Ignore specific files
 personal_songs/
+arduino_audio_processor.py
 song_retrieval.py
 driver_script_v2.py
 source_sep_v2.py
